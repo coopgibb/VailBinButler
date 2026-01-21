@@ -1,377 +1,448 @@
-import React, { useState, useEffect } from 'react';
-import { 
-  Trash2, 
-  ShieldCheck, 
-  Clock, 
-  Menu, 
-  X, 
-  Star, 
-  MapPin, 
-  Phone, 
-  Mail,
-  ArrowRight,
-  CheckCircle2
-} from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vail Bin Butler | Premier Waste Logistics</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gold: #fbbf24;
+            --slate: #0f172a;
+        }
+        
+        /* Smooth Scrolling Behavior */
+        html {
+            scroll-behavior: smooth;
+        }
 
-const VailBinButler = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
+        body {
+            font-family: 'Montserrat', sans-serif;
+            overflow-x: hidden;
+        }
 
-  useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 50);
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+        .font-serif {
+            font-family: 'Cinzel', serif;
+        }
 
-  const scrollToSection = (id) => {
-    const element = document.getElementById(id);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
-    setIsMenuOpen(false);
-  };
+        .hero-gradient {
+            background: linear-gradient(to bottom, rgba(15, 23, 42, 0.7), rgba(15, 23, 42, 0.3), rgba(15, 23, 42, 1));
+        }
 
-  const navLinks = [
-    { name: 'Services', id: 'services' },
-    { name: 'How It Works', id: 'how-it-works' },
-    { name: 'Pricing', id: 'pricing' },
-    { name: 'Contact', id: 'contact' },
-  ];
+        .nav-blur {
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
 
-  const services = [
-    {
-      title: "Curbside Placement",
-      description: "Our uniformed professionals discreetly retrieve your bins from your garage or side-yard and place them precisely for collection.",
-      icon: <ArrowRight className="w-6 h-6" />
-    },
-    {
-      title: "Post-Collection Return",
-      description: "Once emptied, we return your bins to their designated storage area, ensuring they are sanitized and neatly positioned.",
-      icon: <Clock className="w-6 h-6" />
-    },
-    {
-      title: "Discreet Management",
-      description: "We operate with the silence and efficiency of a traditional butler, ensuring your property remains pristine without interruption.",
-      icon: <ShieldCheck className="w-6 h-6" />
-    }
-  ];
+        .transition-standard {
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
 
-  const tiers = [
-    {
-      name: "The Alpine",
-      price: "95",
-      features: ["Weekly Curbside Placement", "Weekly Bin Return", "Standard 2-Bin Limit", "SMS Notifications"],
-      highlight: false
-    },
-    {
-      name: "The Summit",
-      price: "145",
-      features: ["Bi-Weekly Placement & Return", "Up to 4 Bins Included", "Monthly Bin Sanitization", "Priority Support"],
-      highlight: true
-    }
-  ];
+        /* Offset for anchor links to account for fixed header */
+        section {
+            scroll-margin-top: 80px;
+        }
 
-  return (
-    <div className="min-h-screen bg-stone-50 text-slate-900 font-sans selection:bg-amber-100">
-      {/* Navigation */}
-      <nav className={`fixed w-full z-50 transition-all duration-500 ${scrolled ? 'bg-white/90 backdrop-blur-md py-4 shadow-sm' : 'bg-transparent py-6'}`}>
-        <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
-          <div className="flex items-center space-x-2 cursor-pointer" onClick={() => window.scrollTo({top: 0, behavior: 'smooth'})}>
-            <div className="w-10 h-10 bg-slate-900 flex items-center justify-center rounded-sm">
-              <Trash2 className="text-amber-400 w-6 h-6" />
+        /* Custom Scrollbar for Premium Feel */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0f172a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #fbbf24;
+            border-radius: 0px;
+        }
+    </style>
+</head>
+<body class="bg-stone-50 text-slate-900">
+
+    <!-- Navigation -->
+    <nav id="navbar" class="fixed w-full z-50 transition-standard py-6">
+        <div class="max-w-7xl mx-auto px-6 flex justify-between items-center">
+            <a href="#" class="flex items-center space-x-2 cursor-pointer group" onclick="smoothScroll(event, '#top')">
+                <div class="w-10 h-10 bg-slate-900 flex items-center justify-center rounded-sm border border-amber-400/20 group-hover:border-amber-400 transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="text-amber-400 w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/><line x1="10" x2="10" y1="11" y2="17"/><line x1="14" x2="14" y1="11" y2="17"/></svg>
+                </div>
+                <span id="nav-logo-text" class="text-xl font-serif tracking-widest uppercase font-bold text-white">
+                    Vail Bin Butler
+                </span>
+            </a>
+
+            <!-- Desktop Nav -->
+            <div class="hidden md:flex space-x-8 items-center">
+                <a href="#services" onclick="smoothScroll(event, '#services')" class="nav-link text-[10px] uppercase tracking-[0.3em] font-bold text-white/80 hover:text-amber-400 transition-colors">Services</a>
+                <a href="#how-it-works" onclick="smoothScroll(event, '#how-it-works')" class="nav-link text-[10px] uppercase tracking-[0.3em] font-bold text-white/80 hover:text-amber-400 transition-colors">Process</a>
+                <a href="#pricing" onclick="smoothScroll(event, '#pricing')" class="nav-link text-[10px] uppercase tracking-[0.3em] font-bold text-white/80 hover:text-amber-400 transition-colors">Pricing</a>
+                <a href="#contact" onclick="smoothScroll(event, '#contact')" id="nav-cta" class="px-6 py-3 text-[10px] uppercase tracking-[0.3em] bg-white text-slate-900 hover:bg-amber-400 transition-all font-bold shadow-lg">Inquire Now</a>
             </div>
-            <span className={`text-xl font-serif tracking-widest uppercase font-bold transition-colors duration-500 ${scrolled ? 'text-slate-900' : 'text-white'}`}>
-              Vail Bin Butler
-            </span>
-          </div>
 
-          {/* Desktop Nav */}
-          <div className="hidden md:flex space-x-8 items-center">
-            {navLinks.map((link) => (
-              <button 
-                key={link.name} 
-                onClick={() => scrollToSection(link.id)}
-                className={`text-sm uppercase tracking-widest transition-colors duration-500 ${scrolled ? 'text-slate-600 hover:text-amber-600' : 'text-white/80 hover:text-white'}`}
-              >
-                {link.name}
-              </button>
-            ))}
-            <button 
-              onClick={() => scrollToSection('contact')}
-              className={`px-6 py-2 text-sm uppercase tracking-widest transition-all ${scrolled ? 'bg-slate-900 text-white hover:bg-slate-800' : 'bg-white text-slate-900 hover:bg-amber-400'}`}
-            >
-              Contact Us Now
+            <!-- Mobile Toggle -->
+            <button class="md:hidden text-white" id="mobile-toggle" onclick="toggleMenu()">
+                <svg id="menu-icon" xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" /></svg>
             </button>
-          </div>
+        </div>
+    </nav>
 
-          {/* Mobile Toggle */}
-          <button className={`md:hidden ${scrolled ? 'text-slate-900' : 'text-white'}`} onClick={() => setIsMenuOpen(!isMenuOpen)}>
-            {isMenuOpen ? <X /> : <Menu />}
-          </button>
-        </div>
-      </nav>
-
-      {/* Mobile Menu */}
-      <AnimatePresence>
-        {isMenuOpen && (
-          <motion.div 
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            className="fixed inset-0 z-40 bg-white pt-24 px-6 md:hidden"
-          >
-            <div className="flex flex-col space-y-6 text-center">
-              {navLinks.map((link) => (
-                <button 
-                  key={link.name} 
-                  onClick={() => scrollToSection(link.id)}
-                  className="text-2xl font-serif"
-                >
-                  {link.name}
-                </button>
-              ))}
-              <button 
-                onClick={() => scrollToSection('contact')}
-                className="bg-slate-900 text-white py-4 uppercase tracking-widest"
-              >
-                Contact Us Now
-              </button>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
-      {/* Hero Section */}
-      <section className="relative h-screen flex items-center justify-center overflow-hidden">
-        <div className="absolute inset-0 z-0">
-          {/* IMAGE PLACEHOLDER: Main Hero Background (Vail Mountain Landscape) */}
-          <img 
-            src="https://images.unsplash.com/photo-1544198365-f5d60b6d8190?auto=format&fit=crop&q=80&w=2000" 
-            alt="Vail Mountain" 
-            className="w-full h-full object-cover"
-          />
-          <div className="absolute inset-0 bg-gradient-to-b from-slate-900/60 via-slate-900/40 to-slate-900"></div>
-        </div>
-        
-        <div className="relative z-10 text-center px-6 max-w-4xl">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-          >
-            <span className="text-amber-400 uppercase tracking-[0.4em] text-sm mb-6 block font-medium">Premier Waste Logistics</span>
-            <h1 className="text-5xl md:text-8xl font-serif text-white mb-12 leading-tight tracking-tight">
-              Elevated Living. <br />
-              <span className="italic text-stone-200 font-light">Effortless Service.</span>
-            </h1>
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
-              <button 
-                onClick={() => scrollToSection('contact')}
-                className="w-full sm:w-auto bg-amber-400 text-slate-900 px-12 py-5 uppercase tracking-widest font-bold hover:bg-amber-300 transition-all shadow-xl"
-              >
-                Contact Us Now
-              </button>
-              <button 
-                onClick={() => scrollToSection('pricing')}
-                className="w-full sm:w-auto border border-white/40 text-white px-12 py-5 uppercase tracking-widest hover:bg-white/10 backdrop-blur-sm transition-all"
-              >
-                View Services
-              </button>
-            </div>
-          </motion.div>
-        </div>
-        
-        <div className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4">
-          <div className="w-[1px] h-16 bg-gradient-to-b from-amber-400 to-transparent"></div>
-        </div>
-      </section>
-
-      {/* Services Section */}
-      <section id="services" className="py-32 px-6 bg-white">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid md:grid-cols-2 gap-20 items-center">
-            <div>
-              <span className="text-amber-600 uppercase tracking-[0.2em] text-xs font-bold">The Experience</span>
-              <h2 className="text-4xl md:text-6xl font-serif mt-6 mb-10 leading-tight">Discreet. Reliable. <br/>Professional.</h2>
-              <p className="text-slate-600 text-lg mb-10 leading-relaxed font-light">
-                In the world's most prestigious mountain destination, details matter. Vail Bin Butler provides a seamless solution to one of homeownership's most tedious chores. Our team ensures your bins are at the curb exactly when needed and returned to your garage before you even notice they were gone.
-              </p>
-              <div className="space-y-8">
-                {services.map((s, i) => (
-                  <div key={i} className="flex items-start space-x-6 group">
-                    <div className="mt-1 text-amber-600 bg-stone-50 p-3 rounded-sm group-hover:bg-amber-600 group-hover:text-white transition-colors duration-300">
-                      {s.icon}
-                    </div>
-                    <div>
-                      <h4 className="font-bold uppercase tracking-widest text-sm mb-2">{s.title}</h4>
-                      <p className="text-slate-500 text-sm leading-relaxed">{s.description}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-            <div className="relative">
-              <div className="aspect-[4/5] bg-stone-200 overflow-hidden rounded-sm shadow-2xl relative">
-                {/* IMAGE PLACEHOLDER: Lifestyle Image (Luxury Home/Garage) */}
-                <img 
-                  src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&q=80" 
-                  alt="Luxury Home" 
-                  className="w-full h-full object-cover grayscale-[10%] hover:scale-105 transition-transform duration-1000"
-                />
-              </div>
-              <div className="absolute -bottom-10 -left-10 bg-slate-900 text-white p-10 hidden lg:block max-w-xs shadow-2xl border-l-4 border-amber-400">
-                <Star className="text-amber-400 mb-6 w-8 h-8" />
-                <p className="italic font-serif text-xl leading-relaxed">"The ultimate convenience for our vacation home. We arrive and everything is just... handled."</p>
-                <p className="mt-6 uppercase tracking-[0.2em] text-[10px] text-stone-400 font-bold">— The Miller Estate, Beaver Creek</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* How It Works */}
-      <section id="how-it-works" className="py-32 bg-slate-900 text-white px-6 relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-1/3 h-full bg-white/5 -skew-x-12 translate-x-1/2"></div>
-        <div className="max-w-7xl mx-auto text-center mb-20 relative z-10">
-          <h2 className="text-4xl md:text-5xl font-serif mb-6">The Butler Process</h2>
-          <div className="w-20 h-[2px] bg-amber-400 mx-auto"></div>
-        </div>
-        <div className="max-w-7xl mx-auto grid md:grid-cols-3 gap-12 relative z-10">
-          {[
-            { n: "01", t: "Schedule", d: "Select your collection days based on your local municipal schedule." },
-            { n: "02", t: "Access", d: "Provide secure access via garage code or side-gate entry." },
-            { n: "03", t: "Relax", d: "Never worry about missed collections or unsightly bins again." }
-          ].map((step, i) => (
-            <div key={i} className="relative p-10 border border-white/10 hover:border-amber-400/30 transition-all duration-500 group bg-slate-900/50 backdrop-blur-sm">
-              <span className="text-7xl font-serif text-white/5 absolute top-6 right-6 group-hover:text-amber-400/10 transition-colors">
-                {step.n}
-              </span>
-              <h3 className="text-2xl font-serif mb-6 relative z-10 tracking-wide">{step.t}</h3>
-              <p className="text-stone-400 leading-relaxed relative z-10 font-light">{step.d}</p>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* Pricing Section */}
-      <section id="pricing" className="py-32 px-6 bg-stone-50">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-20">
-            <span className="text-amber-600 uppercase tracking-[0.3em] text-xs font-bold">Investment</span>
-            <h2 className="text-4xl md:text-6xl font-serif mt-6">Service Tiers</h2>
-          </div>
-          
-          <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto items-center">
-            {tiers.map((tier, i) => (
-              <div 
-                key={i} 
-                className={`p-12 flex flex-col transition-all duration-500 ${tier.highlight ? 'bg-slate-900 text-white scale-105 shadow-2xl z-10 py-20' : 'bg-white text-slate-900 border border-stone-200'}`}
-              >
-                <h3 className="text-2xl font-serif mb-4 tracking-tight">{tier.name}</h3>
-                <div className="flex items-baseline mb-10">
-                  <span className="text-xs uppercase tracking-widest mr-3 opacity-60">From</span>
-                  <span className="text-5xl font-bold tracking-tighter">${tier.price}</span>
-                  <span className="text-xs text-stone-500 ml-2 uppercase tracking-widest">/mo</span>
-                </div>
-                <ul className="space-y-5 mb-12 flex-grow">
-                  {tier.features.map((feat, j) => (
-                    <li key={j} className="flex items-center text-sm font-light tracking-wide">
-                      <CheckCircle2 className={`w-4 h-4 mr-4 flex-shrink-0 ${tier.highlight ? 'text-amber-400' : 'text-amber-600'}`} />
-                      {feat}
-                    </li>
-                  ))}
-                </ul>
-                <button 
-                  onClick={() => scrollToSection('contact')}
-                  className={`w-full py-5 uppercase tracking-[0.2em] text-xs font-bold transition-all ${tier.highlight ? 'bg-amber-400 text-slate-900 hover:bg-amber-300' : 'bg-slate-900 text-white hover:bg-slate-800'}`}
-                >
-                  Select Plan
-                </button>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Contact Section */}
-      <section id="contact" className="py-32 px-6 bg-white">
-        <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-24">
-          <div>
-            <h2 className="text-4xl md:text-5xl font-serif mb-8">Inquire About Service</h2>
-            <p className="text-slate-600 text-lg mb-12 font-light leading-relaxed">
-              Ready to elevate your home management? Contact our concierge team to establish your service schedule or request a custom quote for estate management.
-            </p>
-            <div className="space-y-8">
-              {[
-                { icon: <Phone />, label: "Call Us", val: "970.555.0123" },
-                { icon: <Mail />, label: "Email", val: "concierge@vailbinbutler.com" },
-                { icon: <MapPin />, label: "Service Area", val: "Vail, Beaver Creek, Edwards" }
-              ].map((item, i) => (
-                <div key={i} className="flex items-center space-x-6">
-                  <div className="w-14 h-14 bg-stone-50 flex items-center justify-center rounded-full text-slate-900">
-                    {React.cloneElement(item.icon, { size: 20 })}
-                  </div>
-                  <div>
-                    <p className="text-[10px] uppercase tracking-[0.3em] text-stone-500 font-bold mb-1">{item.label}</p>
-                    <p className="font-serif text-lg">{item.val}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-          
-          <div className="bg-stone-50 p-10 md:p-16 rounded-sm shadow-sm border border-stone-100">
-            <form className="space-y-8" onSubmit={(e) => e.preventDefault()}>
-              <div className="grid md:grid-cols-2 gap-8">
-                <div className="space-y-3">
-                  <label className="text-[10px] uppercase tracking-[0.2em] font-bold text-slate-500">Full Name</label>
-                  <input type="text" className="w-full bg-white border-b border-stone-200 p-4 focus:border-amber-400 outline-none transition-colors" placeholder="John Doe" />
-                </div>
-                <div className="space-y-3">
-                  <label className="text-[10px] uppercase tracking-[0.2em] font-bold text-slate-500">Email Address</label>
-                  <input type="email" className="w-full bg-white border-b border-stone-200 p-4 focus:border-amber-400 outline-none transition-colors" placeholder="john@example.com" />
-                </div>
-              </div>
-              <div className="space-y-3">
-                <label className="text-[10px] uppercase tracking-[0.2em] font-bold text-slate-500">Property Address</label>
-                <input type="text" className="w-full bg-white border-b border-stone-200 p-4 focus:border-amber-400 outline-none transition-colors" placeholder="123 Mountain View Dr, Vail" />
-              </div>
-              <div className="space-y-3">
-                <label className="text-[10px] uppercase tracking-[0.2em] font-bold text-slate-500">Message</label>
-                <textarea rows="4" className="w-full bg-white border-b border-stone-200 p-4 focus:border-amber-400 outline-none transition-colors resize-none" placeholder="Tell us about your needs..."></textarea>
-              </div>
-              <button className="w-full bg-slate-900 text-white py-5 uppercase tracking-[0.3em] text-xs font-bold hover:bg-slate-800 transition-all shadow-lg">
-                Send Inquiry
-              </button>
-            </form>
-          </div>
-        </div>
-      </section>
-
-      {/* Footer */}
-      <footer className="bg-slate-900 text-white py-20 px-6 border-t border-white/5">
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center">
-          <div className="flex items-center space-x-3 mb-10 md:mb-0">
-            <div className="w-10 h-10 bg-amber-400 flex items-center justify-center rounded-sm">
-              <Trash2 className="text-slate-900 w-6 h-6" />
-            </div>
-            <span className="text-xl font-serif tracking-[0.2em] uppercase font-bold">Vail Bin Butler</span>
-          </div>
-          
-          <div className="flex space-x-10 text-[10px] uppercase tracking-[0.3em] text-stone-500 font-bold">
-            <button onClick={() => window.scrollTo({top: 0, behavior: 'smooth'})} className="hover:text-amber-400 transition-colors">Privacy</button>
-            <button onClick={() => window.scrollTo({top: 0, behavior: 'smooth'})} className="hover:text-amber-400 transition-colors">Terms</button>
-            <button onClick={() => window.scrollTo({top: 0, behavior: 'smooth'})} className="hover:text-amber-400 transition-colors">Careers</button>
-          </div>
-          
-          <p className="mt-10 md:mt-0 text-[10px] text-stone-600 uppercase tracking-[0.2em] font-bold">
-            © 2024 Vail Bin Butler. All Rights Reserved.
-          </p>
-        </div>
-      </footer>
+    <!-- Mobile Menu Overlay -->
+    <div id="mobile-menu" class="fixed inset-0 z-[60] bg-slate-900 hidden flex-col justify-center items-center space-y-10 px-6">
+        <button onclick="toggleMenu()" class="absolute top-8 right-6 text-white">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
+        </button>
+        <a href="#services" onclick="smoothScroll(event, '#services'); toggleMenu();" class="text-3xl font-serif text-white hover:text-amber-400 transition-colors">Services</a>
+        <a href="#how-it-works" onclick="smoothScroll(event, '#how-it-works'); toggleMenu();" class="text-3xl font-serif text-white hover:text-amber-400 transition-colors">Process</a>
+        <a href="#pricing" onclick="smoothScroll(event, '#pricing'); toggleMenu();" class="text-3xl font-serif text-white hover:text-amber-400 transition-colors">Pricing</a>
+        <a href="#contact" onclick="smoothScroll(event, '#contact'); toggleMenu();" class="bg-amber-400 text-slate-900 w-full py-5 text-center uppercase tracking-[0.3em] font-bold text-sm">Contact Us Now</a>
     </div>
-  );
-};
 
-export default VailBinButler;
+    <!-- Hero Section -->
+    <section id="top" class="relative h-screen flex items-center justify-center overflow-hidden">
+        <div class="absolute inset-0 z-0">
+            <img src="https://images.unsplash.com/photo-1544198365-f5d60b6d8190?auto=format&fit=crop&q=80&w=2000" alt="Vail Mountain" class="w-full h-full object-cover">
+            <div class="absolute inset-0 hero-gradient"></div>
+        </div>
+        
+        <div class="relative z-10 text-center px-6 max-w-4xl">
+            <span class="text-amber-400 uppercase tracking-[0.5em] text-xs mb-8 block font-bold opacity-0 translate-y-4 animate-[fadeInUp_1s_ease_forwards]">Premier Waste Logistics</span>
+            <h1 class="text-5xl md:text-8xl font-serif text-white mb-12 leading-tight tracking-tight opacity-0 translate-y-4 animate-[fadeInUp_1s_0.3s_ease_forwards]">
+                Elevated Living. <br />
+                <span class="italic text-stone-300 font-light">Effortless Service.</span>
+            </h1>
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-6 opacity-0 translate-y-4 animate-[fadeInUp_1s_0.6s_ease_forwards]">
+                <a href="#contact" onclick="smoothScroll(event, '#contact')" class="w-full sm:w-auto bg-amber-400 text-slate-900 px-12 py-5 uppercase tracking-[0.3em] text-xs font-bold hover:bg-amber-300 transition-all shadow-2xl text-center">
+                    Contact Us Now
+                </a>
+                <a href="#services" onclick="smoothScroll(event, '#services')" class="w-full sm:w-auto border border-white/40 text-white px-12 py-5 uppercase tracking-[0.3em] text-xs font-bold hover:bg-white/10 backdrop-blur-sm transition-all text-center">
+                    View Services
+                </a>
+            </div>
+        </div>
+        
+        <div class="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4">
+            <div class="w-[1px] h-16 bg-gradient-to-b from-amber-400 to-transparent animate-pulse"></div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="py-32 px-6 bg-white">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid md:grid-cols-2 gap-20 items-center">
+                <div>
+                    <span class="text-amber-600 uppercase tracking-[0.3em] text-xs font-bold">The Experience</span>
+                    <h2 class="text-4xl md:text-6xl font-serif mt-6 mb-10 leading-tight">Discreet. Reliable. <br/>Professional.</h2>
+                    <p class="text-slate-600 text-lg mb-10 leading-relaxed font-light">
+                        In the world's most prestigious mountain destination, details matter. Vail Bin Butler provides a seamless solution to one of homeownership's most tedious chores. Our team ensures your bins are at the curb exactly when needed and returned to your garage before you even notice they were gone.
+                    </p>
+                    <div class="space-y-8">
+                        <div class="flex items-start space-x-6 group">
+                            <div class="mt-1 text-amber-600 bg-stone-50 p-3 rounded-sm group-hover:bg-amber-600 group-hover:text-white transition-colors duration-300">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
+                            </div>
+                            <div>
+                                <h4 class="font-bold uppercase tracking-widest text-sm mb-2">Curbside Placement</h4>
+                                <p class="text-slate-500 text-sm leading-relaxed">Our uniformed professionals discreetly retrieve your bins from your garage or side-yard and place them precisely for collection.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-6 group">
+                            <div class="mt-1 text-amber-600 bg-stone-50 p-3 rounded-sm group-hover:bg-amber-600 group-hover:text-white transition-colors duration-300">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                            </div>
+                            <div>
+                                <h4 class="font-bold uppercase tracking-widest text-sm mb-2">Post-Collection Return</h4>
+                                <p class="text-slate-500 text-sm leading-relaxed">Once emptied, we return your bins to their designated storage area, ensuring they are sanitized and neatly positioned.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="relative">
+                    <div class="aspect-[4/5] bg-stone-200 overflow-hidden rounded-sm shadow-2xl relative">
+                        <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&q=80" alt="Luxury Home" class="w-full h-full object-cover grayscale-[10%] hover:scale-105 transition-transform duration-1000">
+                    </div>
+                    <div class="absolute -bottom-10 -left-10 bg-slate-900 text-white p-10 hidden lg:block max-w-xs shadow-2xl border-l-4 border-amber-400">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="text-amber-400 mb-6 w-8 h-8" fill="currentColor" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                        <p class="italic font-serif text-xl leading-relaxed">"The ultimate convenience for our vacation home. We arrive and everything is just... handled."</p>
+                        <p class="mt-6 uppercase tracking-[0.2em] text-[10px] text-stone-400 font-bold">— The Miller Estate, Beaver Creek</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section id="how-it-works" class="py-32 bg-slate-900 text-white px-6 relative overflow-hidden">
+        <div class="absolute top-0 right-0 w-1/3 h-full bg-white/5 -skew-x-12 translate-x-1/2"></div>
+        <div class="max-w-7xl mx-auto text-center mb-20 relative z-10">
+            <h2 class="text-4xl md:text-5xl font-serif mb-6">The Butler Process</h2>
+            <div class="w-20 h-[2px] bg-amber-400 mx-auto"></div>
+        </div>
+        <div class="max-w-7xl mx-auto grid md:grid-cols-3 gap-12 relative z-10">
+            <div class="relative p-10 border border-white/10 hover:border-amber-400/30 transition-all duration-500 group bg-slate-900/50 backdrop-blur-sm">
+                <span class="text-7xl font-serif text-white/5 absolute top-6 right-6 group-hover:text-amber-400/10 transition-colors">01</span>
+                <h3 class="text-2xl font-serif mb-6 relative z-10 tracking-wide">Schedule</h3>
+                <p class="text-stone-400 leading-relaxed relative z-10 font-light">Select your collection days based on your local municipal schedule.</p>
+            </div>
+            <div class="relative p-10 border border-white/10 hover:border-amber-400/30 transition-all duration-500 group bg-slate-900/50 backdrop-blur-sm">
+                <span class="text-7xl font-serif text-white/5 absolute top-6 right-6 group-hover:text-amber-400/10 transition-colors">02</span>
+                <h3 class="text-2xl font-serif mb-6 relative z-10 tracking-wide">Access</h3>
+                <p class="text-stone-400 leading-relaxed relative z-10 font-light">Provide secure access via garage code or side-gate entry.</p>
+            </div>
+            <div class="relative p-10 border border-white/10 hover:border-amber-400/30 transition-all duration-500 group bg-slate-900/50 backdrop-blur-sm">
+                <span class="text-7xl font-serif text-white/5 absolute top-6 right-6 group-hover:text-amber-400/10 transition-colors">03</span>
+                <h3 class="text-2xl font-serif mb-6 relative z-10 tracking-wide">Relax</h3>
+                <p class="text-stone-400 leading-relaxed relative z-10 font-light">Never worry about missed collections or unsightly bins again.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="py-32 px-6 bg-stone-50">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-20">
+                <span class="text-amber-600 uppercase tracking-[0.3em] text-xs font-bold">Investment</span>
+                <h2 class="text-4xl md:text-6xl font-serif mt-6">Service Tiers</h2>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto items-center">
+                <!-- Alpine Tier -->
+                <div class="p-12 flex flex-col transition-all duration-500 bg-white text-slate-900 border border-stone-200">
+                    <h3 class="text-2xl font-serif mb-4 tracking-tight">The Alpine</h3>
+                    <div class="flex items-baseline mb-10">
+                        <span class="text-xs uppercase tracking-widest mr-3 opacity-60">From</span>
+                        <span class="text-5xl font-bold tracking-tighter">$95</span>
+                        <span class="text-xs text-stone-500 ml-2 uppercase tracking-widest">/mo</span>
+                    </div>
+                    <ul class="space-y-5 mb-12 flex-grow">
+                        <li class="flex items-center text-sm font-light tracking-wide">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mr-4 flex-shrink-0 text-amber-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                            Weekly Curbside Placement
+                        </li>
+                        <li class="flex items-center text-sm font-light tracking-wide">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mr-4 flex-shrink-0 text-amber-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                            Weekly Bin Return
+                        </li>
+                        <li class="flex items-center text-sm font-light tracking-wide">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mr-4 flex-shrink-0 text-amber-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                            Standard 2-Bin Limit
+                        </li>
+                    </ul>
+                    <a href="#contact" onclick="smoothScroll(event, '#contact')" class="w-full py-5 text-center uppercase tracking-[0.3em] text-[10px] font-bold transition-all bg-slate-900 text-white hover:bg-slate-800">Select Plan</a>
+                </div>
+
+                <!-- Summit Tier -->
+                <div class="p-12 flex flex-col transition-all duration-500 bg-slate-900 text-white scale-105 shadow-2xl z-10 py-20">
+                    <h3 class="text-2xl font-serif mb-4 tracking-tight">The Summit</h3>
+                    <div class="flex items-baseline mb-10">
+                        <span class="text-xs uppercase tracking-widest mr-3 opacity-60">From</span>
+                        <span class="text-5xl font-bold tracking-tighter">$145</span>
+                        <span class="text-xs text-stone-500 ml-2 uppercase tracking-widest">/mo</span>
+                    </div>
+                    <ul class="space-y-5 mb-12 flex-grow">
+                        <li class="flex items-center text-sm font-light tracking-wide">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mr-4 flex-shrink-0 text-amber-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                            Bi-Weekly Placement & Return
+                        </li>
+                        <li class="flex items-center text-sm font-light tracking-wide">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mr-4 flex-shrink-0 text-amber-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                            Up to 4 Bins Included
+                        </li>
+                        <li class="flex items-center text-sm font-light tracking-wide">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mr-4 flex-shrink-0 text-amber-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                            Monthly Bin Sanitization
+                        </li>
+                    </ul>
+                    <a href="#contact" onclick="smoothScroll(event, '#contact')" class="w-full py-5 text-center uppercase tracking-[0.3em] text-[10px] font-bold transition-all bg-amber-400 text-slate-900 hover:bg-amber-300">Select Plan</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-32 px-6 bg-white">
+        <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-24">
+            <div>
+                <h2 class="text-4xl md:text-5xl font-serif mb-8">Inquire About Service</h2>
+                <p class="text-slate-600 text-lg mb-12 font-light leading-relaxed">
+                    Ready to elevate your home management? Contact our concierge team to establish your service schedule or request a custom quote for estate management.
+                </p>
+                <div class="space-y-8">
+                    <div class="flex items-center space-x-6">
+                        <div class="w-14 h-14 bg-stone-50 flex items-center justify-center rounded-full text-slate-900">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" /></svg>
+                        </div>
+                        <div>
+                            <p class="text-[10px] uppercase tracking-[0.3em] text-stone-500 font-bold mb-1">Call Us</p>
+                            <p class="font-serif text-lg">970.555.0123</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center space-x-6">
+                        <div class="w-14 h-14 bg-stone-50 flex items-center justify-center rounded-full text-slate-900">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
+                        </div>
+                        <div>
+                            <p class="text-[10px] uppercase tracking-[0.3em] text-stone-500 font-bold mb-1">Email</p>
+                            <p class="font-serif text-lg">concierge@vailbinbutler.com</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="bg-stone-50 p-10 md:p-16 rounded-sm shadow-sm border border-stone-100">
+                <form class="space-y-8" onsubmit="event.preventDefault();">
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <div class="space-y-3">
+                            <label class="text-[10px] uppercase tracking-[0.2em] font-bold text-slate-500">Full Name</label>
+                            <input type="text" class="w-full bg-white border-b border-stone-200 p-4 focus:border-amber-400 outline-none transition-colors" placeholder="John Doe">
+                        </div>
+                        <div class="space-y-3">
+                            <label class="text-[10px] uppercase tracking-[0.2em] font-bold text-slate-500">Email Address</label>
+                            <input type="email" class="w-full bg-white border-b border-stone-200 p-4 focus:border-amber-400 outline-none transition-colors" placeholder="john@example.com">
+                        </div>
+                    </div>
+                    <div class="space-y-3">
+                        <label class="text-[10px] uppercase tracking-[0.2em] font-bold text-slate-500">Property Address</label>
+                        <input type="text" class="w-full bg-white border-b border-stone-200 p-4 focus:border-amber-400 outline-none transition-colors" placeholder="123 Mountain View Dr, Vail">
+                    </div>
+                    <div class="space-y-3">
+                        <label class="text-[10px] uppercase tracking-[0.2em] font-bold text-slate-500">Message</label>
+                        <textarea rows="4" class="w-full bg-white border-b border-stone-200 p-4 focus:border-amber-400 outline-none transition-colors resize-none" placeholder="Tell us about your needs..."></textarea>
+                    </div>
+                    <button class="w-full bg-slate-900 text-white py-5 uppercase tracking-[0.3em] text-[10px] font-bold hover:bg-slate-800 transition-all shadow-lg">
+                        Send Inquiry
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-white py-20 px-6 border-t border-white/5">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center">
+            <div class="flex items-center space-x-3 mb-10 md:mb-0">
+                <div class="w-10 h-10 bg-amber-400 flex items-center justify-center rounded-sm">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="text-slate-900 w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/><line x1="10" x2="10" y1="11" y2="17"/><line x1="14" x2="14" y1="11" y2="17"/></svg>
+                </div>
+                <span class="text-xl font-serif tracking-[0.2em] uppercase font-bold">Vail Bin Butler</span>
+            </div>
+            
+            <div class="flex space-x-10 text-[10px] uppercase tracking-[0.3em] text-stone-500 font-bold">
+                <a href="#" class="hover:text-amber-400 transition-colors">Privacy</a>
+                <a href="#" class="hover:text-amber-400 transition-colors">Terms</a>
+                <a href="#" class="hover:text-amber-400 transition-colors">Careers</a>
+            </div>
+            
+            <p class="mt-10 md:mt-0 text-[10px] text-stone-600 uppercase tracking-[0.2em] font-bold">
+                © 2024 Vail Bin Butler. All Rights Reserved.
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        const navbar = document.getElementById('navbar');
+        const logoText = document.getElementById('nav-logo-text');
+        const navCta = document.getElementById('nav-cta');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileToggle = document.getElementById('mobile-toggle');
+
+        // Smooth Scroll Function
+        function smoothScroll(event, targetId) {
+            event.preventDefault();
+            const targetElement = document.querySelector(targetId === '#' ? 'body' : targetId);
+            if (targetElement) {
+                const offset = 80; // Height of the fixed navbar
+                const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - offset;
+                
+                window.scrollTo({
+                    top: targetPosition,
+                    behavior: 'smooth'
+                });
+            }
+        }
+
+        // Navbar Scroll Effect
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('bg-white', 'nav-blur', 'py-4', 'shadow-md');
+                navbar.classList.remove('bg-transparent', 'py-6');
+                logoText.classList.add('text-slate-900');
+                logoText.classList.remove('text-white');
+                mobileToggle.classList.add('text-slate-900');
+                mobileToggle.classList.remove('text-white');
+                navCta.classList.add('bg-slate-900', 'text-white');
+                navCta.classList.remove('bg-white', 'text-slate-900');
+                
+                document.querySelectorAll('.nav-link').forEach(link => {
+                    link.classList.add('text-slate-600');
+                    link.classList.remove('text-white/80');
+                });
+            } else {
+                navbar.classList.remove('bg-white', 'nav-blur', 'py-4', 'shadow-md');
+                navbar.classList.add('bg-transparent', 'py-6');
+                logoText.classList.remove('text-slate-900');
+                logoText.classList.add('text-white');
+                mobileToggle.classList.remove('text-slate-900');
+                mobileToggle.classList.add('text-white');
+                navCta.classList.remove('bg-slate-900', 'text-white');
+                navCta.classList.add('bg-white', 'text-slate-900');
+                
+                document.querySelectorAll('.nav-link').forEach(link => {
+                    link.classList.remove('text-slate-600');
+                    link.classList.add('text-white/80');
+                });
+            }
+        });
+
+        // Mobile Menu Toggle
+        function toggleMenu() {
+            if (mobileMenu.classList.contains('hidden')) {
+                mobileMenu.classList.remove('hidden');
+                mobileMenu.classList.add('flex');
+                document.body.style.overflow = 'hidden';
+            } else {
+                mobileMenu.classList.add('hidden');
+                mobileMenu.classList.remove('flex');
+                document.body.style.overflow = 'auto';
+            }
+        }
+
+        // Animation on Scroll (Simple Observer)
+        const observerOptions = {
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('opacity-100', 'translate-y-0');
+                    entry.target.classList.remove('opacity-0', 'translate-y-10');
+                }
+            });
+        }, observerOptions);
+
+        // Apply fade-in to sections
+        document.querySelectorAll('section').forEach(section => {
+            if (section.id !== 'top') {
+                section.classList.add('transition-all', 'duration-1000', 'opacity-0', 'translate-y-10');
+                observer.observe(section);
+            }
+        });
+    </script>
+
+    <style>
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</body>
+</html>
+
