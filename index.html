@@ -29,13 +29,9 @@
             font-family: 'Cinzel', serif;
         }
 
-        /* Adjusted gradient to be less "hazy" - sharper transition and lower opacity at the bottom */
-        .hero-gradient {
-            background: linear-gradient(to bottom, 
-                rgba(15, 23, 42, 0.6) 0%, 
-                rgba(15, 23, 42, 0.2) 40%, 
-                rgba(248, 248, 247, 0) 70%,
-                var(--stone) 100%);
+        /* Removed the hazy gradient overlay entirely for maximum clarity */
+        .hero-overlay {
+            background: rgba(15, 23, 42, 0.45); /* Darker, uniform overlay to make white text pop */
         }
 
         .nav-blur {
@@ -67,6 +63,11 @@
             background-image: radial-gradient(var(--gold) 0.5px, transparent 0.5px);
             background-size: 20px 20px;
             opacity: 0.15;
+        }
+
+        /* Text Shadow for extra legibility against complex backgrounds */
+        .text-pop {
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
         }
     </style>
 </head>
@@ -119,27 +120,27 @@
     <section id="top" class="relative h-screen flex items-center justify-center overflow-hidden">
         <div class="absolute inset-0 z-0">
             <img src="MainPicture2.png" alt="Vail Mountain" class="w-full h-full object-cover">
-            <div class="absolute inset-0 hero-gradient"></div>
+            <div class="absolute inset-0 hero-overlay"></div>
         </div>
         
         <div class="relative z-10 text-center px-6 max-w-4xl">
-            <span class="text-amber-500 uppercase tracking-[0.4em] text-sm mb-6 block font-black opacity-0 translate-y-4 animate-[fadeInUp_1s_ease_forwards]">The Dirty Work, Done Beautifully</span>
-            <h1 class="text-6xl md:text-8xl font-serif text-slate-900 mb-10 leading-tight tracking-tight opacity-0 translate-y-4 animate-[fadeInUp_1s_0.3s_ease_forwards]">
+            <span class="text-amber-400 uppercase tracking-[0.4em] text-sm mb-6 block font-black opacity-0 translate-y-4 animate-[fadeInUp_1s_ease_forwards] text-pop">The Dirty Work, Done Beautifully</span>
+            <h1 class="text-6xl md:text-8xl font-serif text-white mb-10 leading-tight tracking-tight opacity-0 translate-y-4 animate-[fadeInUp_1s_0.3s_ease_forwards] text-pop">
                 Vail's Finest <br />
-                <span class="italic text-slate-700 font-light">Bin Concierge.</span>
+                <span class="italic text-amber-400 font-light">Bin Concierge.</span>
             </h1>
             <div class="flex flex-col sm:flex-row items-center justify-center gap-6 opacity-0 translate-y-4 animate-[fadeInUp_1s_0.6s_ease_forwards]">
-                <a href="#contact" onclick="smoothScroll(event, '#contact')" class="w-full sm:w-auto bg-slate-900 text-white px-14 py-6 uppercase tracking-[0.2em] text-xs font-black hover:bg-slate-800 transition-all shadow-2xl text-center rounded-full">
+                <a href="#contact" onclick="smoothScroll(event, '#contact')" class="w-full sm:w-auto bg-amber-400 text-slate-900 px-14 py-6 uppercase tracking-[0.2em] text-xs font-black hover:bg-white transition-all shadow-2xl text-center rounded-full">
                     Join the Club
                 </a>
-                <a href="#services" onclick="smoothScroll(event, '#services')" class="w-full sm:w-auto bg-white/90 border-2 border-slate-900/10 text-slate-900 px-14 py-6 uppercase tracking-[0.2em] text-xs font-black hover:bg-white transition-all text-center rounded-full backdrop-blur-sm">
+                <a href="#services" onclick="smoothScroll(event, '#services')" class="w-full sm:w-auto bg-white/10 border-2 border-white/30 text-white px-14 py-6 uppercase tracking-[0.2em] text-xs font-black hover:bg-white hover:text-slate-900 transition-all text-center rounded-full backdrop-blur-md">
                     What We Do
                 </a>
             </div>
         </div>
         
         <div class="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4">
-            <div class="w-1 h-16 bg-gradient-to-b from-amber-500 to-transparent rounded-full animate-bounce"></div>
+            <div class="w-1 h-16 bg-gradient-to-b from-amber-400 to-transparent rounded-full animate-bounce"></div>
         </div>
     </section>
 
