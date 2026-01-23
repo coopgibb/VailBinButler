@@ -29,9 +29,8 @@
             font-family: 'Cinzel', serif;
         }
 
-        /* Removed the hazy gradient overlay entirely for maximum clarity */
         .hero-overlay {
-            background: rgba(15, 23, 42, 0.45); /* Darker, uniform overlay to make white text pop */
+            background: rgba(15, 23, 42, 0.45); 
         }
 
         .nav-blur {
@@ -65,9 +64,21 @@
             opacity: 0.15;
         }
 
-        /* Text Shadow for extra legibility against complex backgrounds */
         .text-pop {
             text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+
+        /* Mobile vs Desktop Hero Image Logic */
+        .hero-bg {
+            background-image: url('MainPicture2.jpg'); /* Desktop Default */
+            background-size: cover;
+            background-position: center;
+        }
+
+        @media (max-width: 768px) {
+            .hero-bg {
+                background-image: url('MobileHeroPicture.jpg'); /* Placeholder for your mobile image */
+            }
         }
     </style>
 </head>
@@ -118,8 +129,7 @@
 
     <!-- Hero Section -->
     <section id="top" class="relative h-screen flex items-center justify-center overflow-hidden">
-        <div class="absolute inset-0 z-0">
-            <img src="MainPicture2.jpg" alt="Vail Mountain" class="w-full h-full object-cover">
+        <div class="absolute inset-0 z-0 hero-bg">
             <div class="absolute inset-0 hero-overlay"></div>
         </div>
         
@@ -229,67 +239,108 @@
                 <h2 class="text-5xl md:text-6xl font-serif mt-6 text-slate-900">Service Tiers</h2>
             </div>
             
-            <div class="grid md:grid-cols-2 gap-10 max-w-5xl mx-auto items-center">
-                <!-- Alpine Tier -->
-                <div class="p-12 flex flex-col transition-all duration-500 bg-white text-slate-900 rounded-[3rem] shadow-xl border-2 border-stone-100">
-                    <h3 class="text-3xl font-serif mb-4 tracking-tight">The Alpine</h3>
-                    <div class="flex items-baseline mb-10">
-                        <span class="text-xs uppercase tracking-widest mr-3 opacity-60">From</span>
-                        <span class="text-6xl font-black tracking-tighter">$95</span>
-                        <span class="text-sm text-slate-400 ml-2 uppercase tracking-widest">/mo</span>
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto items-stretch">
+                <!-- Base Camp Tier -->
+                <div class="p-8 flex flex-col transition-all duration-500 bg-white text-slate-900 rounded-[3rem] shadow-xl border-2 border-stone-100">
+                    <h3 class="text-2xl font-serif mb-4 tracking-tight">The Base Camp</h3>
+                    <div class="flex items-baseline mb-8">
+                        <span class="text-[10px] uppercase tracking-widest mr-2 opacity-60">From</span>
+                        <span class="text-4xl font-black tracking-tighter">$35</span>
+                        <span class="text-[10px] text-slate-400 ml-1 uppercase tracking-widest">/pass</span>
                     </div>
-                    <ul class="space-y-6 mb-12 flex-grow">
-                        <li class="flex items-center text-sm font-bold">
-                            <div class="w-6 h-6 bg-amber-100 rounded-full flex items-center justify-center mr-4">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-amber-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
+                    <ul class="space-y-4 mb-10 flex-grow">
+                        <li class="flex items-center text-[11px] font-bold">
+                            <div class="w-5 h-5 bg-slate-100 rounded-full flex items-center justify-center mr-3">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3 text-slate-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
                             </div>
-                            Weekly Curbside Placement
+                            One-Time Placement
                         </li>
-                        <li class="flex items-center text-sm font-bold">
-                            <div class="w-6 h-6 bg-amber-100 rounded-full flex items-center justify-center mr-4">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-amber-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
+                        <li class="flex items-center text-[11px] font-bold">
+                            <div class="w-5 h-5 bg-slate-100 rounded-full flex items-center justify-center mr-3">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3 text-slate-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
                             </div>
-                            Weekly Bin Return
+                            One-Time Return
                         </li>
-                        <li class="flex items-center text-sm font-bold">
-                            <div class="w-6 h-6 bg-amber-100 rounded-full flex items-center justify-center mr-4">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-amber-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
+                    </ul>
+                    <a href="#contact" onclick="smoothScroll(event, '#contact')" class="w-full py-4 text-center uppercase tracking-[0.2em] text-[9px] font-black transition-all bg-slate-100 text-slate-900 hover:bg-slate-200 rounded-full">Select Pass</a>
+                </div>
+
+                <!-- The Glazier Tier -->
+                <div class="p-8 flex flex-col transition-all duration-500 bg-amber-50 text-slate-900 rounded-[3rem] shadow-xl border-2 border-amber-200">
+                    <h3 class="text-2xl font-serif mb-4 tracking-tight">The Glazier</h3>
+                    <div class="flex items-baseline mb-8">
+                        <span class="text-[10px] uppercase tracking-widest mr-2 opacity-60">From</span>
+                        <span class="text-4xl font-black tracking-tighter">$45</span>
+                        <span class="text-[10px] text-amber-600/60 ml-1 uppercase tracking-widest">/visit</span>
+                    </div>
+                    <ul class="space-y-4 mb-10 flex-grow">
+                        <li class="flex items-center text-[11px] font-bold">
+                            <div class="w-5 h-5 bg-amber-200 rounded-full flex items-center justify-center mr-3">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3 text-amber-700" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
+                            </div>
+                            Deep Bin Sanitization
+                        </li>
+                        <li class="flex items-center text-[11px] font-bold">
+                            <div class="w-5 h-5 bg-amber-200 rounded-full flex items-center justify-center mr-3">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3 text-amber-700" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
+                            </div>
+                            Eco-Friendly Deodorizing
+                        </li>
+                    </ul>
+                    <a href="#contact" onclick="smoothScroll(event, '#contact')" class="w-full py-4 text-center uppercase tracking-[0.2em] text-[9px] font-black transition-all bg-amber-400 text-slate-900 hover:bg-amber-500 rounded-full">Book Cleaning</a>
+                </div>
+
+                <!-- Alpine Tier (MOST POPULAR) -->
+                <div class="p-8 flex flex-col transition-all duration-500 bg-white text-slate-900 rounded-[3rem] shadow-xl border-2 border-slate-900 relative">
+                    <div class="absolute -top-4 left-1/2 -translate-x-1/2 bg-amber-400 text-slate-900 px-6 py-1 rounded-full text-[10px] font-black uppercase tracking-[0.2em] shadow-lg whitespace-nowrap">
+                        Most Popular Choice
+                    </div>
+                    <h3 class="text-2xl font-serif mb-4 tracking-tight mt-2">The Alpine</h3>
+                    <div class="flex items-baseline mb-8">
+                        <span class="text-[10px] uppercase tracking-widest mr-2 opacity-60">From</span>
+                        <span class="text-4xl font-black tracking-tighter">$95</span>
+                        <span class="text-[10px] text-slate-400 ml-1 uppercase tracking-widest">/mo</span>
+                    </div>
+                    <ul class="space-y-4 mb-10 flex-grow">
+                        <li class="flex items-center text-[11px] font-bold">
+                            <div class="w-5 h-5 bg-amber-100 rounded-full flex items-center justify-center mr-3">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3 text-amber-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
+                            </div>
+                            Weekly Curbside Service
+                        </li>
+                        <li class="flex items-center text-[11px] font-bold">
+                            <div class="w-5 h-5 bg-amber-100 rounded-full flex items-center justify-center mr-3">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3 text-amber-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
                             </div>
                             Standard 2-Bin Limit
                         </li>
                     </ul>
-                    <a href="#contact" onclick="smoothScroll(event, '#contact')" class="w-full py-6 text-center uppercase tracking-[0.2em] text-xs font-black transition-all bg-slate-900 text-white hover:bg-slate-800 rounded-full shadow-lg">Select Plan</a>
+                    <a href="#contact" onclick="smoothScroll(event, '#contact')" class="w-full py-4 text-center uppercase tracking-[0.2em] text-[9px] font-black transition-all bg-slate-900 text-white hover:bg-slate-800 rounded-full shadow-lg">Select Plan</a>
                 </div>
 
                 <!-- Summit Tier -->
-                <div class="p-12 flex flex-col transition-all duration-500 bg-slate-900 text-white rounded-[3rem] scale-105 shadow-2xl z-10 py-20 border-t-8 border-amber-400">
-                    <div class="absolute top-6 right-10 bg-amber-400 text-slate-900 text-[10px] font-black px-4 py-1 rounded-full uppercase tracking-widest">Most Popular</div>
-                    <h3 class="text-3xl font-serif mb-4 tracking-tight">The Summit</h3>
-                    <div class="flex items-baseline mb-10">
-                        <span class="text-xs uppercase tracking-widest mr-3 opacity-60">From</span>
-                        <span class="text-6xl font-black tracking-tighter">$125</span>
-                        <span class="text-sm text-stone-400 ml-2 uppercase tracking-widest">/mo</span>
+                <div class="p-8 flex flex-col transition-all duration-500 bg-slate-900 text-white rounded-[3rem] shadow-2xl border-t-8 border-amber-400">
+                    <h3 class="text-2xl font-serif mb-4 tracking-tight">The Summit</h3>
+                    <div class="flex items-baseline mb-8">
+                        <span class="text-[10px] uppercase tracking-widest mr-2 opacity-60">From</span>
+                        <span class="text-4xl font-black tracking-tighter">$125</span>
+                        <span class="text-[10px] text-stone-400 ml-1 uppercase tracking-widest">/mo</span>
                     </div>
-                    <ul class="space-y-6 mb-12 flex-grow">
-                        <li class="flex items-center text-sm font-bold">
-                            <div class="w-6 h-6 bg-amber-400 rounded-full flex items-center justify-center mr-4">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-slate-900" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
-                            </div>
-                        </li>
-                        <li class="flex items-center text-sm font-bold">
-                            <div class="w-6 h-6 bg-amber-400 rounded-full flex items-center justify-center mr-4">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-slate-900" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
+                    <ul class="space-y-4 mb-10 flex-grow">
+                        <li class="flex items-center text-[11px] font-bold">
+                            <div class="w-5 h-5 bg-amber-400 rounded-full flex items-center justify-center mr-3">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3 text-slate-900" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
                             </div>
                             Up to 4 Bins Included
                         </li>
-                        <li class="flex items-center text-sm font-bold">
-                            <div class="w-6 h-6 bg-amber-400 rounded-full flex items-center justify-center mr-4">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-slate-900" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
+                        <li class="flex items-center text-[11px] font-bold">
+                            <div class="w-5 h-5 bg-amber-400 rounded-full flex items-center justify-center mr-3">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3 text-slate-900" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
                             </div>
-                            Monthly Bin Sanitization
+                            Monthly Sanitization
                         </li>
                     </ul>
-                    <a href="#contact" onclick="smoothScroll(event, '#contact')" class="w-full py-6 text-center uppercase tracking-[0.2em] text-xs font-black transition-all bg-amber-400 text-slate-900 hover:bg-amber-300 rounded-full shadow-lg">Select Plan</a>
+                    <a href="#contact" onclick="smoothScroll(event, '#contact')" class="w-full py-4 text-center uppercase tracking-[0.2em] text-[9px] font-black transition-all bg-amber-400 text-slate-900 hover:bg-amber-300 rounded-full shadow-lg">Select Plan</a>
                 </div>
             </div>
         </div>
