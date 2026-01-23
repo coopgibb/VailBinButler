@@ -68,17 +68,29 @@
             text-shadow: 0 2px 10px rgba(0,0,0,0.3);
         }
 
-        /* Mobile vs Desktop Hero Image Logic */
         .hero-bg {
-            background-image: url('MainPicture2.jpg'); /* Desktop Default */
+            background-image: url('MainPicture2.jpg');
             background-size: cover;
             background-position: center;
         }
 
         @media (max-width: 768px) {
             .hero-bg {
-                background-image: url('MainPicturePhone1.png'); /* Placeholder for your mobile image */
+                background-image: url('MainPicturePhone1.png');
             }
+        }
+
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
     </style>
 </head>
@@ -101,7 +113,6 @@
                 </span>
             </a>
 
-            <!-- Desktop Nav -->
             <div class="hidden md:flex space-x-8 items-center">
                 <a href="#services" onclick="smoothScroll(event, '#services')" class="nav-link text-[11px] uppercase tracking-[0.2em] font-extrabold text-white/90 hover:text-amber-400 transition-colors">Services</a>
                 <a href="#how-it-works" onclick="smoothScroll(event, '#how-it-works')" class="nav-link text-[11px] uppercase tracking-[0.2em] font-extrabold text-white/90 hover:text-amber-400 transition-colors">Process</a>
@@ -109,7 +120,6 @@
                 <a href="#contact" onclick="smoothScroll(event, '#contact')" id="nav-cta" class="px-8 py-3 text-[11px] uppercase tracking-[0.2em] bg-white text-slate-900 hover:scale-105 transition-all font-black rounded-full shadow-xl">Inquire Now</a>
             </div>
 
-            <!-- Mobile Toggle -->
             <button class="md:hidden text-white" id="mobile-toggle" onclick="toggleMenu()">
                 <svg id="menu-icon" xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" /></svg>
             </button>
@@ -133,7 +143,6 @@
             <div class="absolute inset-0 hero-overlay"></div>
         </div>
         
-        <!-- Adjusted positioning for mobile: mt-32 on mobile to push content down, centered on desktop -->
         <div class="relative z-10 text-center px-6 max-w-4xl mt-32 md:mt-0">
             <span class="text-amber-400 uppercase tracking-[0.4em] text-sm mb-6 block font-black opacity-0 translate-y-4 animate-[fadeInUp_1s_ease_forwards] text-pop">The Dirty Work, Done Beautifully</span>
             <h1 class="text-6xl md:text-8xl font-serif text-white mb-10 leading-tight tracking-tight opacity-0 translate-y-4 animate-[fadeInUp_1s_0.3s_ease_forwards] text-pop">
@@ -150,49 +159,88 @@
             </div>
         </div>
         
-        <!-- Bouncing line: Hidden on mobile (hidden), visible on medium screens and up (md:flex) -->
         <div class="absolute bottom-12 left-1/2 -translate-x-1/2 hidden md:flex flex-col items-center gap-4">
             <div class="w-1 h-16 bg-gradient-to-b from-amber-400 to-transparent rounded-full animate-bounce"></div>
         </div>
     </section>
 
-    <!-- Services Section -->
+    <!-- Services Section with Tabs -->
     <section id="services" class="py-32 px-6 relative">
         <div class="absolute inset-0 bg-pattern pointer-events-none"></div>
         <div class="max-w-7xl mx-auto relative z-10">
-            <div class="grid md:grid-cols-2 gap-20 items-center">
+            <div class="grid md:grid-cols-2 gap-20 items-start">
                 <div>
                     <span class="text-amber-600 uppercase tracking-[0.3em] text-xs font-black">White Glove Trash Management</span>
                     <h2 class="text-5xl md:text-6xl font-serif mt-6 mb-10 leading-tight text-slate-900">Elevated Service. <br/>Zero Stress.</h2>
-                    <p class="text-slate-600 text-xl mb-10 leading-relaxed font-medium">
-                        In Vail, your time is better spent in the sun and snow than dragging your trash bins. We provide a high-end, friendly solution to the mountain's most annoying chore. We’re like a butler for your trash—discreet, reliable, and always on time.
-                    </p>
-                    <div class="space-y-6">
-                        <div class="flex items-center space-x-6 p-6 bg-white rounded-3xl shadow-sm border border-amber-100 group hover:shadow-xl transition-all">
-                            <div class="text-amber-600 bg-amber-50 p-4 rounded-2xl group-hover:scale-110 transition-transform">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
+                    
+                    <!-- Tab Navigation -->
+                    <div class="flex space-x-4 mb-10 p-1 bg-stone-200/50 rounded-2xl w-fit">
+                        <button onclick="switchTab('concierge')" id="tab-btn-concierge" class="px-6 py-3 rounded-xl text-[10px] uppercase tracking-widest font-black transition-all bg-slate-900 text-white shadow-lg">Concierge</button>
+                        <button onclick="switchTab('sanitation')" id="tab-btn-sanitation" class="px-6 py-3 rounded-xl text-[10px] uppercase tracking-widest font-black transition-all text-slate-500 hover:text-slate-900">Sanitation</button>
+                    </div>
+
+                    <!-- Tab Content: Concierge -->
+                    <div id="concierge-content" class="tab-content active">
+                        <p class="text-slate-600 text-xl mb-10 leading-relaxed font-medium">
+                            In Vail, your time is better spent in the sun and snow than dragging your trash bins. We provide a high-end, friendly solution to the mountain's most annoying chore.
+                        </p>
+                        <div class="space-y-6">
+                            <div class="flex items-center space-x-6 p-6 bg-white rounded-3xl shadow-sm border border-amber-100 group hover:shadow-xl transition-all">
+                                <div class="text-amber-600 bg-amber-50 p-4 rounded-2xl group-hover:scale-110 transition-transform">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
+                                </div>
+                                <div>
+                                    <h4 class="font-black uppercase tracking-widest text-sm text-slate-900">Curbside Magic</h4>
+                                    <p class="text-slate-500 text-sm">We whisk your bins to the curb before the truck arrives.</p>
+                                </div>
                             </div>
-                            <div>
-                                <h4 class="font-black uppercase tracking-widest text-sm text-slate-900">Curbside Magic</h4>
-                                <p class="text-slate-500 text-sm">We whisk your bins to the curb before the truck arrives.</p>
+                            <div class="flex items-center space-x-6 p-6 bg-white rounded-3xl shadow-sm border border-amber-100 group hover:shadow-xl transition-all">
+                                <div class="text-amber-600 bg-amber-50 p-4 rounded-2xl group-hover:scale-110 transition-transform">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                                </div>
+                                <div>
+                                    <h4 class="font-black uppercase tracking-widest text-sm text-slate-900">The Tidy Return</h4>
+                                    <p class="text-slate-500 text-sm">Bins are tucked back into your garage, neat and tidy.</p>
+                                </div>
                             </div>
                         </div>
-                        <div class="flex items-center space-x-6 p-6 bg-white rounded-3xl shadow-sm border border-amber-100 group hover:shadow-xl transition-all">
-                            <div class="text-amber-600 bg-amber-50 p-4 rounded-2xl group-hover:scale-110 transition-transform">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                    </div>
+
+                    <!-- Tab Content: Sanitation -->
+                    <div id="sanitation-content" class="tab-content">
+                        <p class="text-slate-600 text-xl mb-10 leading-relaxed font-medium">
+                            Keep your estate pristine and odor-free. Our specialized cleaning service uses high-pressure, eco-friendly systems to eliminate 99.9% of bacteria and grime.
+                        </p>
+                        <div class="space-y-6">
+                            <div class="flex items-center space-x-6 p-6 bg-white rounded-3xl shadow-sm border border-amber-100 group hover:shadow-xl transition-all">
+                                <div class="text-amber-600 bg-amber-50 p-4 rounded-2xl group-hover:scale-110 transition-transform">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" /></svg>
+                                </div>
+                                <div>
+                                    <h4 class="font-black uppercase tracking-widest text-sm text-slate-900">Deep Sanitization</h4>
+                                    <p class="text-slate-500 text-sm">200-degree water blast to kill germs and remove buildup.</p>
+                                </div>
                             </div>
-                            <div>
-                                <h4 class="font-black uppercase tracking-widest text-sm text-slate-900">The Tidy Return</h4>
-                                <p class="text-slate-500 text-sm">Bins are tucked back into your garage, neat and tidy.</p>
+                            <div class="flex items-center space-x-6 p-6 bg-white rounded-3xl shadow-sm border border-amber-100 group hover:shadow-xl transition-all">
+                                <div class="text-amber-600 bg-amber-50 p-4 rounded-2xl group-hover:scale-110 transition-transform">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-7.714 2.143L11 21l-2.286-6.857L1 12l7.714-2.143L11 3z" /></svg>
+                                </div>
+                                <div>
+                                    <h4 class="font-black uppercase tracking-widest text-sm text-slate-900">Eco-Deodorizing</h4>
+                                    <p class="text-slate-500 text-sm">Finished with a fresh scent that keeps pests away.</p>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="relative">
+
+                <div class="relative flex flex-col">
                     <div class="aspect-[4/5] bg-stone-200 overflow-hidden rounded-[3rem] shadow-2xl relative border-8 border-white">
-                        <img src="SecondPicture.png" alt="Luxury Home" class="w-full h-full object-cover hover:scale-105 transition-transform duration-1000">
+                        <img id="service-image" src="SecondPicture.png" alt="Service Image" class="w-full h-full object-cover hover:scale-105 transition-transform duration-1000">
                     </div>
-                    <div class="absolute -bottom-8 -left-8 bg-slate-900 text-white p-10 hidden lg:block max-w-xs shadow-2xl rounded-3xl border-b-8 border-amber-400">
+                    
+                    <!-- Review Section: Now placed below the picture -->
+                    <div class="mt-8 bg-slate-900 text-white p-10 shadow-2xl rounded-3xl border-b-8 border-amber-400">
                         <div class="flex space-x-1 mb-4">
                             <svg xmlns="http://www.w3.org/2000/svg" class="text-amber-400 w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
                             <svg xmlns="http://www.w3.org/2000/svg" class="text-amber-400 w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
@@ -379,26 +427,27 @@
             </div>
             
             <div class="bg-white p-10 md:p-16 rounded-[3rem] shadow-2xl border border-stone-100">
-                <form class="space-y-8" onsubmit="event.preventDefault();">
+                <!-- FORM ACTION: Replace 'https://your-form-submit-url.com' with your actual endpoint -->
+                <form class="space-y-8" action="https://formspree.io/f/your-id" method="POST">
                     <div class="grid md:grid-cols-2 gap-8">
                         <div class="space-y-3">
                             <label class="text-[10px] uppercase tracking-[0.2em] font-black text-slate-400">Full Name</label>
-                            <input type="text" class="w-full bg-stone-50 rounded-2xl p-5 focus:ring-4 focus:ring-amber-400/20 outline-none transition-all border-none" placeholder="John Doe">
+                            <input type="text" name="name" required class="w-full bg-stone-50 rounded-2xl p-5 focus:ring-4 focus:ring-amber-400/20 outline-none transition-all border-none" placeholder="John Doe">
                         </div>
                         <div class="space-y-3">
                             <label class="text-[10px] uppercase tracking-[0.2em] font-black text-slate-400">Email Address</label>
-                            <input type="email" class="w-full bg-stone-50 rounded-2xl p-5 focus:ring-4 focus:ring-amber-400/20 outline-none transition-all border-none" placeholder="john@example.com">
+                            <input type="email" name="email" required class="w-full bg-stone-50 rounded-2xl p-5 focus:ring-4 focus:ring-amber-400/20 outline-none transition-all border-none" placeholder="john@example.com">
                         </div>
                     </div>
                     <div class="space-y-3">
                         <label class="text-[10px] uppercase tracking-[0.2em] font-black text-slate-400">Property Address</label>
-                        <input type="text" class="w-full bg-stone-50 rounded-2xl p-5 focus:ring-4 focus:ring-amber-400/20 outline-none transition-all border-none" placeholder="123 Mountain View Dr, Vail">
+                        <input type="text" name="address" required class="w-full bg-stone-50 rounded-2xl p-5 focus:ring-4 focus:ring-amber-400/20 outline-none transition-all border-none" placeholder="123 Mountain View Dr, Vail">
                     </div>
                     <div class="space-y-3">
                         <label class="text-[10px] uppercase tracking-[0.2em] font-black text-slate-400">Message</label>
-                        <textarea rows="4" class="w-full bg-stone-50 rounded-2xl p-5 focus:ring-4 focus:ring-amber-400/20 outline-none transition-all border-none resize-none" placeholder="Tell us about your needs..."></textarea>
+                        <textarea name="message" rows="4" class="w-full bg-stone-50 rounded-2xl p-5 focus:ring-4 focus:ring-amber-400/20 outline-none transition-all border-none resize-none" placeholder="Tell us about your needs..."></textarea>
                     </div>
-                    <button class="w-full bg-slate-900 text-white py-6 uppercase tracking-[0.3em] text-xs font-black hover:bg-slate-800 transition-all shadow-xl rounded-full">
+                    <button type="submit" class="w-full bg-slate-900 text-white py-6 uppercase tracking-[0.3em] text-xs font-black hover:bg-slate-800 transition-all shadow-xl rounded-full">
                         Send Inquiry
                     </button>
                 </form>
@@ -439,6 +488,32 @@
         const navCta = document.getElementById('nav-cta');
         const mobileMenu = document.getElementById('mobile-menu');
         const mobileToggle = document.getElementById('mobile-toggle');
+        const serviceImage = document.getElementById('service-image');
+
+        function switchTab(tab) {
+            const conciergeBtn = document.getElementById('tab-btn-concierge');
+            const sanitationBtn = document.getElementById('tab-btn-sanitation');
+            const conciergeContent = document.getElementById('concierge-content');
+            const sanitationContent = document.getElementById('sanitation-content');
+
+            if (tab === 'concierge') {
+                conciergeBtn.classList.add('bg-slate-900', 'text-white', 'shadow-lg');
+                conciergeBtn.classList.remove('text-slate-500');
+                sanitationBtn.classList.remove('bg-slate-900', 'text-white', 'shadow-lg');
+                sanitationBtn.classList.add('text-slate-500');
+                conciergeContent.classList.add('active');
+                sanitationContent.classList.remove('active');
+                serviceImage.src = 'SecondPicture.png';
+            } else {
+                sanitationBtn.classList.add('bg-slate-900', 'text-white', 'shadow-lg');
+                sanitationBtn.classList.remove('text-slate-500');
+                conciergeBtn.classList.remove('bg-slate-900', 'text-white', 'shadow-lg');
+                conciergeBtn.classList.add('text-slate-500');
+                sanitationContent.classList.add('active');
+                conciergeContent.classList.remove('active');
+                serviceImage.src = 'SanitationPicture.png'; // Update this to your sanitation image filename
+            }
+        }
 
         function smoothScroll(event, targetId) {
             event.preventDefault();
