@@ -133,7 +133,8 @@
             <div class="absolute inset-0 hero-overlay"></div>
         </div>
         
-        <div class="relative z-10 text-center px-6 max-w-4xl">
+        <!-- Adjusted positioning for mobile: mt-32 on mobile to push content down, centered on desktop -->
+        <div class="relative z-10 text-center px-6 max-w-4xl mt-32 md:mt-0">
             <span class="text-amber-400 uppercase tracking-[0.4em] text-sm mb-6 block font-black opacity-0 translate-y-4 animate-[fadeInUp_1s_ease_forwards] text-pop">The Dirty Work, Done Beautifully</span>
             <h1 class="text-6xl md:text-8xl font-serif text-white mb-10 leading-tight tracking-tight opacity-0 translate-y-4 animate-[fadeInUp_1s_0.3s_ease_forwards] text-pop">
                 Vail's Trash <br />
@@ -149,7 +150,8 @@
             </div>
         </div>
         
-        <div class="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4">
+        <!-- Bouncing line: Hidden on mobile (hidden), visible on medium screens and up (md:flex) -->
+        <div class="absolute bottom-12 left-1/2 -translate-x-1/2 hidden md:flex flex-col items-center gap-4">
             <div class="w-1 h-16 bg-gradient-to-b from-amber-400 to-transparent rounded-full animate-bounce"></div>
         </div>
     </section>
