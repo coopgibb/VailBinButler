@@ -239,8 +239,8 @@
                         <img id="service-image" src="SecondPicture.png" alt="Service Image" class="w-full h-full object-cover hover:scale-105 transition-transform duration-1000">
                     </div>
                     
-                    <!-- Review Section: Now placed below the picture -->
-                    <div class="mt-8 bg-slate-900 text-white p-10 shadow-2xl rounded-3xl border-b-8 border-amber-400">
+                    <!-- Review Section -->
+                    <div id="review-box" class="mt-8 bg-slate-900 text-white p-10 shadow-2xl rounded-3xl border-b-8 border-amber-400">
                         <div class="flex space-x-1 mb-4">
                             <svg xmlns="http://www.w3.org/2000/svg" class="text-amber-400 w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
                             <svg xmlns="http://www.w3.org/2000/svg" class="text-amber-400 w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
@@ -248,8 +248,8 @@
                             <svg xmlns="http://www.w3.org/2000/svg" class="text-amber-400 w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
                             <svg xmlns="http://www.w3.org/2000/svg" class="text-amber-400 w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
                         </div>
-                        <p class="italic font-serif text-xl leading-relaxed">"Trash day is completely off our radar now. It’s just handled.."</p>
-                        <p class="mt-6 uppercase tracking-[0.2em] text-[10px] text-amber-400 font-black">— The Smith Family, Beaver Creek</p>
+                        <p id="review-text" class="italic font-serif text-xl leading-relaxed">"Trash day is completely off our radar now. It’s just handled.."</p>
+                        <p id="review-author" class="mt-6 uppercase tracking-[0.2em] text-[10px] text-amber-400 font-black">— The Smith Family, Beaver Creek</p>
                     </div>
                 </div>
             </div>
@@ -290,8 +290,9 @@
             </div>
             
             <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto items-stretch">
-                <!-- Base Camp Tier -->
-                <div class="p-8 flex flex-col transition-all duration-500 bg-white text-slate-900 rounded-[3rem] shadow-xl border-2 border-stone-100">
+                <!-- Day Pass -->
+                <div class="p-8 flex flex-col transition-all duration-500 bg-white text-slate-900 rounded-[3rem] shadow-xl border-2 border-stone-100 relative">
+                    <div class="mb-4 text-[9px] font-black uppercase tracking-widest text-amber-600 bg-amber-50 px-3 py-1 rounded-full w-fit">Bin Concierge</div>
                     <h3 class="text-2xl font-serif mb-4 tracking-tight">The Day Pass</h3>
                     <div class="flex items-baseline mb-8">
                         <span class="text-[10px] uppercase tracking-widest mr-2 opacity-60">From</span>
@@ -315,8 +316,9 @@
                     <a href="#contact" onclick="smoothScroll(event, '#contact')" class="w-full py-4 text-center uppercase tracking-[0.2em] text-[9px] font-black transition-all bg-slate-100 text-slate-900 hover:bg-slate-200 rounded-full">Select Pass</a>
                 </div>
 
-                <!-- The Glazier Tier -->
-                <div class="p-8 flex flex-col transition-all duration-500 bg-amber-50 text-slate-900 rounded-[3rem] shadow-xl border-2 border-amber-200">
+                <!-- The Glacier -->
+                <div class="p-8 flex flex-col transition-all duration-500 bg-amber-50 text-slate-900 rounded-[3rem] shadow-xl border-2 border-amber-200 relative">
+                    <div class="mb-4 text-[9px] font-black uppercase tracking-widest text-amber-700 bg-amber-200/50 px-3 py-1 rounded-full w-fit">Bin Cleaning</div>
                     <h3 class="text-2xl font-serif mb-4 tracking-tight">The Glacier</h3>
                     <div class="flex items-baseline mb-8">
                         <span class="text-[10px] uppercase tracking-widest mr-2 opacity-60">From</span>
@@ -340,12 +342,13 @@
                     <a href="#contact" onclick="smoothScroll(event, '#contact')" class="w-full py-4 text-center uppercase tracking-[0.2em] text-[9px] font-black transition-all bg-amber-400 text-slate-900 hover:bg-amber-500 rounded-full">Book Cleaning</a>
                 </div>
 
-                <!-- Alpine Tier (MOST POPULAR) -->
+                <!-- Alpine Tier -->
                 <div class="p-8 flex flex-col transition-all duration-500 bg-white text-slate-900 rounded-[3rem] shadow-xl border-2 border-slate-900 relative">
                     <div class="absolute -top-4 left-1/2 -translate-x-1/2 bg-amber-400 text-slate-900 px-6 py-1 rounded-full text-[10px] font-black uppercase tracking-[0.2em] shadow-lg whitespace-nowrap">
                         Most Popular Choice
                     </div>
-                    <h3 class="text-2xl font-serif mb-4 tracking-tight mt-2">The Alpine</h3>
+                    <div class="mb-4 text-[9px] font-black uppercase tracking-widest text-amber-600 bg-amber-50 px-3 py-1 rounded-full w-fit mt-2">Bin Concierge</div>
+                    <h3 class="text-2xl font-serif mb-4 tracking-tight">The Alpine</h3>
                     <div class="flex items-baseline mb-8">
                         <span class="text-[10px] uppercase tracking-widest mr-2 opacity-60">From</span>
                         <span class="text-4xl font-black tracking-tighter">$95</span>
@@ -369,7 +372,8 @@
                 </div>
 
                 <!-- Summit Tier -->
-                <div class="p-8 flex flex-col transition-all duration-500 bg-slate-900 text-white rounded-[3rem] shadow-2xl border-t-8 border-amber-400">
+                <div class="p-8 flex flex-col transition-all duration-500 bg-slate-900 text-white rounded-[3rem] shadow-2xl border-t-8 border-amber-400 relative">
+                    <div class="mb-4 text-[9px] font-black uppercase tracking-widest text-amber-400 bg-white/10 px-3 py-1 rounded-full w-fit">Concierge & Cleaning</div>
                     <h3 class="text-2xl font-serif mb-4 tracking-tight">The Summit</h3>
                     <div class="flex items-baseline mb-8">
                         <span class="text-[10px] uppercase tracking-widest mr-2 opacity-60">From</span>
@@ -427,7 +431,6 @@
             </div>
             
             <div class="bg-white p-10 md:p-16 rounded-[3rem] shadow-2xl border border-stone-100">
-                <!-- FORM ACTION: Replace 'https://your-form-submit-url.com' with your actual endpoint -->
                 <form class="space-y-8" action="https://formspree.io/f/your-id" method="POST">
                     <div class="grid md:grid-cols-2 gap-8">
                         <div class="space-y-3">
@@ -489,6 +492,8 @@
         const mobileMenu = document.getElementById('mobile-menu');
         const mobileToggle = document.getElementById('mobile-toggle');
         const serviceImage = document.getElementById('service-image');
+        const reviewText = document.getElementById('review-text');
+        const reviewAuthor = document.getElementById('review-author');
 
         function switchTab(tab) {
             const conciergeBtn = document.getElementById('tab-btn-concierge');
@@ -501,17 +506,31 @@
                 conciergeBtn.classList.remove('text-slate-500');
                 sanitationBtn.classList.remove('bg-slate-900', 'text-white', 'shadow-lg');
                 sanitationBtn.classList.add('text-slate-500');
+                
                 conciergeContent.classList.add('active');
                 sanitationContent.classList.remove('active');
+                
                 serviceImage.src = 'SecondPicture.png';
+                reviewText.innerText = '"Trash day is completely off our radar now. It’s just handled.."';
+                reviewAuthor.innerText = '— The Smith Family, Beaver Creek';
             } else {
                 sanitationBtn.classList.add('bg-slate-900', 'text-white', 'shadow-lg');
                 sanitationBtn.classList.remove('text-slate-500');
                 conciergeBtn.classList.remove('bg-slate-900', 'text-white', 'shadow-lg');
                 conciergeBtn.classList.add('text-slate-500');
+                
                 sanitationContent.classList.add('active');
+                // Ensure text is white on mobile by forcing text-white class on the container
+                sanitationContent.classList.add('text-slate-600', 'md:text-slate-600');
+                // Note: Tailwind's text-slate-600 might look dark on mobile if the background isn't white. 
+                // To ensure it shows up clearly on all versions:
+                sanitationContent.querySelectorAll('p').forEach(p => p.style.color = ''); 
+                
                 conciergeContent.classList.remove('active');
-                serviceImage.src = 'SaniPicture.png'; // Update this to your sanitation image filename
+                
+                serviceImage.src = 'SaniPicture.png';
+                reviewText.innerText = '"Our garage finally smells like a home, not a landfill. The cleaning service is a game changer."';
+                reviewAuthor.innerText = '— The Miller Estate, Vail Village';
             }
         }
 
